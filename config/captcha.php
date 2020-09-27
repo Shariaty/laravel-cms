@@ -12,7 +12,7 @@ return [
     */
     'ExampleCaptcha' => [
         'UserInputID' => 'CaptchaCode',
-        'CodeLength' => 3,
+        'CodeLength' => 4,
         'ImageWidth' => 225,
         'ImageHeight' => 75,
     ],
