@@ -1,0 +1,52 @@
+/*///////////////////////////
+     inputfile strat
+///////////////////////////*/
+.modal-ku {
+    width: 433px;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.inputfile-1 + label {
+    color: #ffffff;
+    background-color: #32c5d2;
+}
+.inputfile + label {
+    width: 240px;
+    line-height: 23px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}
+/*///////////////////////////
+     inputfile end
+///////////////////////////*/
+
+
+.custom-image-container{
+    border: 2px solid lightgray;
+    width: 515px;
+    padding: 5px;
+    margin-bottom: 20px;
+}

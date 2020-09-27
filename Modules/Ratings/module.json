@@ -1,0 +1,16 @@
+{
+    "name": "Ratings",
+    "alias": "ratings",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\Ratings\\Providers\\RatingsServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

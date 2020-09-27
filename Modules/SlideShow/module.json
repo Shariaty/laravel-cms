@@ -1,0 +1,16 @@
+{
+    "name": "SlideShow",
+    "alias": "SlideShow",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\SlideShow\\Providers\\SlideShowServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

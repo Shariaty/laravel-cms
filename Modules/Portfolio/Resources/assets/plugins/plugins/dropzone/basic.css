@@ -1,0 +1,39 @@
+/*
+ * The MIT License
+ * Copyright (c) 2012 Matias Meno <m@tias.me>
+ */
+.myDropzone, .myDropzone * {
+  box-sizing: border-box; }
+
+.myDropzone {
+  position: relative; }
+  .myDropzone .dz-preview {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    margin: 0.5em; }
+    .myDropzone .dz-preview .dz-progress {
+      display: block;
+      height: 15px;
+      border: 1px solid #aaa; }
+      .myDropzone .dz-preview .dz-progress .dz-upload {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: green; }
+    .myDropzone .dz-preview .dz-error-message {
+      color: red;
+      display: none; }
+    .myDropzone .dz-preview.dz-error .dz-error-message, .myDropzone .dz-preview.dz-error .dz-error-mark {
+      display: block; }
+    .myDropzone .dz-preview.dz-success .dz-success-mark {
+      display: block; }
+    .myDropzone .dz-preview .dz-error-mark, .myDropzone .dz-preview .dz-success-mark {
+      position: absolute;
+      display: none;
+      left: 30px;
+      top: 30px;
+      width: 54px;
+      height: 58px;
+      left: 50%;
+      margin-left: -27px; }

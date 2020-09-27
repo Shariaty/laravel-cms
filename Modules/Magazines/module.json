@@ -1,0 +1,16 @@
+{
+    "name": "Magazines",
+    "alias": "magazines",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\Magazines\\Providers\\MagazinesServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

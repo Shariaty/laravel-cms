@@ -1,0 +1,21 @@
+{
+    "Articles": false,
+    "Comments": false,
+    "Contact": true,
+    "Events": false,
+    "Khadamat": false,
+    "Magazines": false,
+    "News": false,
+    "Portal": false,
+    "Portfolio": false,
+    "Products": true,
+    "Ratings": false,
+    "Sale": true,
+    "SlideShow": true,
+    "Stores": false,
+    "Validity": false,
+    "Warehouse": true,
+    "Skills": true,
+    "Skill": false,
+    "Project": false
+}

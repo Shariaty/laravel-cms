@@ -1,0 +1,53 @@
+.imageBox
+{
+    direction: rtl;
+    position: relative;
+    width: 475px;
+    height: 400px;
+    border: 1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor: move;
+    margin: 0px auto;
+    margin-bottom: 5px;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 26%;
+    left: 22%;
+    width: 465px;
+    height: 390px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}
+.action{
+    width: 225px;
+    text-align: center;
+    padding: 5px;
+    margin: 0px auto;
+    border: 1px dotted #c2c2c2;
+    background-color: #e8e8e8;
+}
+.cropped{
+    text-align: center;
+    margin-top: 15px;
+}

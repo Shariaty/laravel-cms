@@ -1,0 +1,16 @@
+{
+    "name": "Khadamat",
+    "alias": "khadamat",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\Khadamat\\Providers\\KhadamatServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

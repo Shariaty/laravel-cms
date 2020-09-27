@@ -1,0 +1,15 @@
+{
+    "name": "ALA/news",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ala Shariaty",
+            "email": "me@alashariaty.ir"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\News\\": ""
+        }
+    }
+}

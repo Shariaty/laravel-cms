@@ -1,0 +1,42 @@
+.dtp_modal-title{
+    display: none;
+}
+
+.dtp_modal-content {
+    font-size: 11px;
+    height: 280px;
+    background-color: #f1f1f1;
+    border: 1px solid lightgrey;
+    width: 625px;
+    top: 285px !important;
+}
+
+.dtp_modal-cell-time {
+    width: 311px;
+    height: 279px;
+    float: left;
+    direction: ltr;
+    border-right: solid 1px #d0d0d0;
+}
+
+.dpt_modal-button {
+    background-color: #01adff;
+    margin: 0 auto;
+    text-align: center;
+    width: 263px;
+    color: #fff;
+    font-size: 14px !important;
+    padding: 8px 14px !important;
+    float: left;
+    text-align: center;
+    display: inline-block;
+    margin-left: 22px;
+    cursor: pointer;
+    border: none !important;
+    border-radius: 3px;
+    box-shadow: none !important;
+}
+
+.dtp_modal-win {
+    background-color: #000000 !important;
+}
