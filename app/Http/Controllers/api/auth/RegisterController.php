@@ -70,7 +70,7 @@ class RegisterController extends Controller
             //Send Activation Code and return response
             $smsData = [
                 'cell' => $user->cell ,
-                'text' => 'کد فعالسازی شما : '.$activationCode ,
+                'text' => $activationCode,
             ];
 
             // Send the activation code
@@ -82,7 +82,7 @@ class RegisterController extends Controller
     /** ------------------------------------------------------------------------------------------------------------- */
     public function activate(Request $request)
     {
-        $activationCode = intval($request->input('activationCode'));
+        $activationCode = intval($request->input('activation_code'));
         $cell = $request->input('cell');
 
         $user = User::where('cell' , $cell)->first();
@@ -92,16 +92,22 @@ class RegisterController extends Controller
                 //Activate Account
                 $user->status = PUS_ACTIVE ;
                 $user->update();
-                return response()->json(['status' => 'success' , 'message' => 'اکانت شما با موفقیت فعال شد']);
+
+                $userToken= JWTAuth::fromUser($user);
+                if ($userToken) {
+                    return response()->json(['status' => 'success' ,
+                        'user' => $user->only(['avatar' , 'cell' , 'fullName']),
+                        'token' => $userToken, 'message' => 'اکانت شما با موفقیت فعال شد']);
+                }
             } else {
                 return response()->json([
                     'status' => 'error',
-                    'code db' => $user->activation_code,
+                    'code db' => $user->fullName,
                     'code USer' => $activationCode,
-                    'message' => 'کد وارد شده نا معتبر است']);
+                    'message' => 'کد وارد شده نا معتبر است'] , 270);
             }
         }
-        return response()->json(['status' => 'error' , 'message' => LBL_COMMON_ERROR]);
+        return response()->json(['status' => 'error' , 'message' => LBL_COMMON_ERROR] , 270);
     }
     /** ------------------------------------------------------------------------------------------------------------- */
     public function sendCodeAgain(Request $request)
@@ -116,12 +122,11 @@ class RegisterController extends Controller
 
                 $smsData = [
                     'cell' => $user->cell ,
-                    'text' => 'کد فعالسازی شما : '.$activationCode ,
+                    'text' => $activationCode ,
                 ];
 
                 // Send the activation code
                 SendSingleSMS::dispatch($smsData);
-//                SendSingleSMS::dispatch($smsData)->delay(Carbon::now()->addMinutes(2));
                 return response()->json(['status' => 'success' , 'message' => 'کد فعاسازی مجدد برای شما ارسال شد.']);
             }
             return response()->json(['status' => 'error' , 'message' => LBL_COMMON_ERROR]);
@@ -153,6 +158,58 @@ class RegisterController extends Controller
         return response()->json([ 'status' => 'error' , 'message' => LBL_COMMON_ERROR ]);
     }
     /** ------------------------------------------------------------------------------------------------------------- */
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(),['cell' => 'required|numeric']);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'validationError' , 'message' => $validator->errors()]);
+        }
+
+        $user = User::where('cell' , $request->input('cell'))->first();
+        if ($user){
+            $activationCode = mt_rand(11111 , 99999);
+            $user->activation_code = $activationCode;
+            $user->save();
+
+            //Send Activation Code and return response
+            $smsData = [
+                'cell' => $user->cell ,
+                'text' => $activationCode,
+            ];
+
+            // Send the activation code
+            SendSingleSMS::dispatch($smsData);
+            return response()->json(['status' => 'success' , 'message' => 'SMS has been sent']);
+        } else{
+            return response()->json(['status' => 'error' , 'message' => LBL_COMMON_ERROR]);
+        }
+    }
+    /** ------------------------------------------------------------------------------------------------------------- */
+    public function resetPasswordAction(Request $request)
+    {
+        $validator = Validator::make($request->all(),['cell' => 'required|numeric' , 'activationCode' =>  'required|numeric' , 'newPassword' => 'required']);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'validationError' , 'message' => $validator->errors()]);
+        }
+
+        $user = User::where('cell' , $request->input('cell'))->first();
+        if ($user){
+            $received_activation_code = $request->input('activationCode');
+            $newPassword = $request->input('newPassword');
+
+            if($user->activation_code == intval($received_activation_code)) {
+                $user->update(array('password' => bcrypt($newPassword)));
+                return response()->json(['status' => 'success' , 'message' => LBL_COMMON_UPDATE_SUCCESSFUL]);
+            } else {
+                return response()->json(['status' => 'error' , 'message' => 'کد فعالسازی اشتباه است']);
+            }
+        } else{
+            return response()->json(['status' => 'error' , 'message' => LBL_COMMON_ERROR]);
+        }
+
+
+    }
     /** ------------------------------------------------------------------------------------------------------------- */
     public function addAddress(Request $request)
     {

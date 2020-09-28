@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendSingleSMS;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('throttle:5,2')->only('login');
+    }
     /** ------------------------------------------------------------------------------------------------------------- */
     protected function validateLogin(Request $request)
     {
@@ -56,10 +61,10 @@ class LoginController extends Controller
                 $user->update(array('status' => PUS_ACTIVE));
                 return response()->json(['result' => 'User has been activated']);
             } else {
-                return response()->json(['result' => 'Activation code is incorrect']);
+                return response()->json(['result' => 'Activation code is incorrect'] , 270);
             }
         } else {
-            return response()->json(['result' => 'There is no user based on your inputs']);
+            return response()->json(['result' => 'There is no user based on your inputs'] , 270);
         }
     }
     /** ------------------------------------------------------------------------------------------------------------- */
@@ -108,6 +113,15 @@ class LoginController extends Controller
                         return response()->json(['status' => 'error' , 'message' => 'اکانت شما غیر فعال شده است ، جهت پیگیری با مدیریت سایت در ارتباط باشید'], 260);
                         break;
                     case PUS_WAIT_FOR_CONFIRM :
+                        if ($user->activation_code){
+                            $smsData = [
+                                'cell' => $user->cell ,
+                                'text' => $user->activation_code ,
+                            ];
+
+                            // Send the activation code
+                            SendSingleSMS::dispatch($smsData);
+                        }
                         return response()->json(['status' => 'error' , 'message' => 'اکانت شما هنوز فعال نشده است ، لطفا نسبت به فعالسازی آن اقدام نمایید'], 270);
                         break;
                     default :
@@ -149,6 +163,15 @@ class LoginController extends Controller
     }
     /** ------------------------------------------------------------------------------------------------------------- */
 
+    public function getUser()
+    {
+        $user = auth()->guard('api')->user();
+        if($user) {
+            return response()->json(['user' => $user->only(['avatar' , 'cell' , 'fullName'])], 200);
+        } else {
+            return response()->json(['user' => null], 200);
+        }
+    }
 
     /** ------------------------------------------------------------------------------------------------------------- */
     protected function _newUserSituation(Request $request) {

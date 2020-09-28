@@ -9,8 +9,8 @@ define('PATH_ROOT',  getcwd());
 define('CONFIG_LIMIT_COMBINATION_PRODUCTS_MODULE', 2);
 
 // Common notify messages  ---------------------------------------------------------------------------
-define('LBL_COMMON_UPDATE_SUCCESSFUL', 'Item has been successfully updated.');
-define('LBL_COMMON_ERROR', 'There was a problem, please try again later if the problem exist, contact the site administrator.');
+define('LBL_COMMON_UPDATE_SUCCESSFUL', 'عملیات با موفقیت انجام شد');
+define('LBL_COMMON_ERROR', 'متاسفانه امکان این درخواست وجود ندارد');
 define('LBL_COMMON_DELETE_SUCCESSFUL', 'Item has been successfully removed.');
 define('LBL_COMMON_DELETE_ERROR', 'There was a problem in removing this item, please try again later if the problem exist, contact the site administrator.');
 define('LBL_CONTACT_MESSAGE_SEND', 'پیغام شما با موفقیت دریافت شد. با تشکر از تماس شما.');
