@@ -2,7 +2,6 @@
 
 namespace Modules\SlideShow\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SlideShow\SlideShow;
 use Modules\SlideShow\SlideShowCategory;
@@ -15,7 +14,8 @@ class SlideShowApiController extends Controller
         $slides = [];
         if ($slug) {
            $category =  SlideShowCategory::where('slug' , $slug)->where('is_published' , 'Y')->first();
-           $slides = $category->slides()->where('is_published' , 'Y')->orderBy('sort' , 'ASC')->get();
+           if ($category)
+                $slides = $category->slides()->where('is_published' , 'Y')->orderBy('sort' , 'ASC')->get();
         } else {
             $slides = SlideShow::where('is_published' , 'Y')->whereHas('category', function ($query) {
                 $query->where('is_published', 'Y');
