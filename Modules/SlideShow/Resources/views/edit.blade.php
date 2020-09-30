@@ -75,15 +75,12 @@
 
                             <input type="hidden" id="store_id" data-id="{{$slide->id}}">
 
-                            {{--<div class="tab-pane fade" id="attachment">--}}
-                               {{----}}
-                            {{--</div>--}}
 
                             <div class="row">
                                 <div class="col-md-12 col-xs-12">
                                     <div class="col-md-12 col-xs-12">
                                         <hr />
-                                        <a href="{{route('admin.slide.list')}}" class="btn btn-warning" >
+                                        <a href="{{route('admin.slide.list' , $cat)}}" class="btn btn-warning" >
                                             <i class="icon icon-action-undo icons"></i>&nbsp;Cancel
                                         </a>
                                         <button type="submit" class="btn btn-success pull-right" id="btnCompanyCreate">
@@ -156,7 +153,6 @@
     <script src="{{ Module::asset('slideshow:js/module.js') }}" type="application/javascript"></script>
     <script>
         M6Module.tabInitialize();
-        // M6Module.product();
         M6Module.initTinyMCE();
         M6Module.ajaxFileUpload();
     </script>

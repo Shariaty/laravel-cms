@@ -15,6 +15,7 @@ use Modules\Portal\PortalAlias;
 use Modules\Portfolio\PortfolioCategory;
 use Modules\Products\ProductCategory;
 use Modules\Sale\SaleInvoice;
+use Modules\SlideShow\SlideShowCategory;
 use Modules\Warehouse\PurchaseInvoice;
 use Modules\Warehouse\WarehouseOutGo;
 
@@ -68,6 +69,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('portfolioCat', PortfolioCategory::class);
         Route::model('portal', PortalAlias::class);
         Route::model('portalTask', Portal::class);
+        Route::model('slide_cat', SlideShowCategory::class);
     }
 
     /**

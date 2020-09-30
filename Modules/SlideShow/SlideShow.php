@@ -18,7 +18,7 @@ class SlideShow extends Model
     public $translatedAttributes = ['title' , 'desc'];
 
     protected $fillable = [
-        'sort' , 'file', 'link' , 'is_published', 'fake'
+        'sort' , 'file', 'link' , 'is_published', 'fake' , 'slideshow_category_id'
     ];
 
     protected $appends = ['fullImage'];
@@ -37,6 +37,11 @@ class SlideShow extends Model
         }
 
         return $final;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo( SlideShowCategory::class , 'slideshow_category_id');
     }
 
 }

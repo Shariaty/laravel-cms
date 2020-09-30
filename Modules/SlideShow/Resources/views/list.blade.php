@@ -20,7 +20,8 @@
                     <span class="bold">{{!empty($title) ? $title: ''}}</span>
                     <span class="font-normal"> ( Total : {{$slides->count()}} ) </span>
                     <span class="pull-right">
-                    <a href="{{route('admin.slide.add')}}" class="btn btn-xs btn-success" style="margin-top: -2px;">+ Add New</a>
+                    <a href="{{route('admin.slide.categories')}}" class="btn btn-xs btn-danger" style="margin-top: -2px;">Back</a>
+                    <a href="{{route('admin.slide.add' , $cat)}}" class="btn btn-xs btn-success" style="margin-top: -2px;">+ Add New</a>
                 </span>
                 </div>
                 <div class="panel-body">
@@ -41,13 +42,7 @@
                                         <td>
                                             {{$post->title}}
                                         </td>
-                                        {{--<td>--}}
-                                            {{--<div class="progress progress-striped active">--}}
-                                                {{--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$post->percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$post->percentage}}%">--}}
-                                                    {{--{{$post->percentage}}%--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</td>--}}
+
                                         <td class="center-text">
                                             {{\Carbon\Carbon::parse($post->created_at)->diffForHumans()}}
                                         </td>
@@ -64,7 +59,7 @@
                                         </td>
                                         <td style="width: 3px;">
                                             <div class="btn-group btn-group-xs btn-group-solid">
-                                                <a href="{{route('admin.slide.edit' , $post)}}"  class="btn blue"><i class="fa fa-edit"></i></a>
+                                                <a href="{{route('admin.slide.edit' , [$cat , $post])}}"  class="btn blue"><i class="fa fa-edit"></i></a>
                                                 <a href="{{route('admin.slide.delete' , $post)}}" class="btn red confirmation-remove"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>

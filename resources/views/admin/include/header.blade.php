@@ -264,8 +264,8 @@
 
                     @if( hasModule('SlideShow') )
                         @can(config('permissions.PERMISSION_SLIDESHOW'))
-                            <li class="nav-item {{(strpos(URL::current(),url('administrator/slide-show/list')) !== false ) ? 'active open': '' }} ">
-                                <a href="{{ route('admin.slide.list') }}" class="nav-link ">
+                            <li class="nav-item {{(strpos(URL::current(),url('administrator/slide-show/categories')) !== false ) || (strpos(URL::current(),url('administrator/slide-show')) !== false ) ? 'active open': '' }} ">
+                                <a href="{{ route('admin.slide.categories') }}" class="nav-link ">
                                     <i class="fa fa-file-image-o"></i>
                                     <span class="title">Slide Show</span>
                                 </a>

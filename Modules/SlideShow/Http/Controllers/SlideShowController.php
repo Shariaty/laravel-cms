@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Modules\SlideShow\SlideShow;
+use Modules\SlideShow\SlideShowCategory;
 
 class SlideShowController extends Controller
 {
@@ -20,24 +21,24 @@ class SlideShowController extends Controller
     protected  $destinationPath = PATH_ROOT.('/uploads/admins/slide-show-pictures');
 
     // -------------------------------------------------------------------------------
-    public function index()
+    public function index(SlideShowCategory $cat)
     {
-        $slides = SlideShow::published()->orderBy('sort' , 'ASC')->paginate(50);
-        return view('slideshow::list' , compact('slides'))->with('title' , 'List of Slides');
+        $slides = $cat->slides()->published()->orderBy('sort' , 'ASC')->paginate(50);
+        return view('slideshow::list' , compact('slides' , 'cat'))->with('title' , 'List of Slides: '.$cat->title);
     }
     // -------------------------------------------------------------------------------
-    public function add()
+    public function add(SlideShowCategory $cat)
     {
         $this->removeFakeOnes();
-        $lastOrder = SlideShow::max('sort');
-        $slide = SlideShow::create(array('sort' => $lastOrder ? $lastOrder+1 : 1 , 'fake' => 'Y'));
-        return redirect(route('admin.slide.edit' , $slide->id));
+        $lastOrder = $cat->slides()->max('sort');
+        $slide = SlideShow::create(array('sort' => $lastOrder ? $lastOrder+1 : 1 , 'fake' => 'Y' , 'slideshow_category_id' => $cat->id));
+        return redirect(route('admin.slide.edit' , [$cat , $slide->id]));
     }
     // -------------------------------------------------------------------------------
-    public function edit(SlideShow $slide)
+    public function edit(SlideShowCategory $cat , SlideShow $slide)
     {
         $locales = Config::get('translatable.localeList');
-        return view('slideshow::edit' , compact('slide' , 'locales'))->with('title' , 'Edit: '.$slide->title);
+        return view('slideshow::edit' , compact('slide' , 'locales' , 'cat'))->with('title' , 'Edit: '.$slide->title);
     }
     // -------------------------------------------------------------------------------
     public function update(Request $request , SlideShow $slide)
@@ -58,7 +59,7 @@ class SlideShowController extends Controller
         $slide->update($data);
 
         $request->session()->flash('Success', trans('notify.UPDATE_SUCCESS_NOTIFICATION'));
-        return redirect($this->redirectPath);
+        return redirect(route('admin.slide.list' , $slide->category));
     }
     // -------------------------------------------------------------------------------
     protected function delete(SlideShow $slide , Request $request){
@@ -67,7 +68,7 @@ class SlideShowController extends Controller
         }
         $slide->delete();
         $request->session()->flash('success', trans('notify.DELETE_SUCCESS_NOTIFICATION'));
-        return redirect($this->redirectPath);
+        return redirect(route('admin.slide.list' , $slide->category));
     }
     // -------------------------------------------------------------------------------
     protected function SlideValidator($data){
@@ -247,5 +248,97 @@ class SlideShowController extends Controller
         return response()->file($fullFileName);
     }
     // AttachmentFile ----------------------------------------------------------------
+
+
+
+    // -------------------------------------------------------------------------------
+    public function categoryList()
+    {
+        $categories = SlideShowCategory::orderBy('created_at')->paginate(20);
+        return view('slideshow::category.list' , compact('categories'))->with('title' , 'Slide Category List');
+    }
+    // -------------------------------------------------------------------------------
+    public function categoryAdd()
+    {
+        return view('slideshow::category.add')->with('title' , 'Slide Category Create');
+    }
+    // -------------------------------------------------------------------------------
+    public function categoryCreate(Request $request)
+    {
+        if($request->has('slug')){
+            $request->merge(array('slug' => slug_utf8($request->input('slug'))));
+        }
+
+        $this->validate($request, [
+            'title' => 'required|max:100',
+            'slug'  => 'required|max:100|unique:slideshow_category,slug',
+            'desc'  => 'max:1000'
+        ]);
+
+        if($request->has('is_published')){
+            $request->merge(array('is_published' => 'Y'));
+        } else {
+            $request->merge(array('is_published' => 'N'));
+        }
+
+        $data = $request->except(['_token' , 'skills_categories']);
+        SlideShowCategory::create($data);
+
+        $request->session()->flash('Success', trans('notify.CREATE_SUCCESS_NOTIFICATION'));
+        return redirect(route('admin.slide.categories'));
+    }
+    // -------------------------------------------------------------------------------
+    public function categoryEdit(SlideShowCategory $cat)
+    {
+        return view('slideshow::category.edit' , compact('cat'))->with('title' , 'Edit: '.$cat->title);
+    }
+    // -------------------------------------------------------------------------------
+    public function categoryUpdate(Request $request , SlideShowCategory $cat)
+    {
+        if($request->has('slug')){
+            $request->merge(array('slug' => slug_utf8($request->input('slug'))));
+        }
+
+        $this->validate($request, [
+            'title' => 'required|max:100',
+            'slug'  => 'required|max:100|unique:slideshow_category,slug,'.$cat->id,
+            'desc'  => 'max:1000'
+        ]);
+
+        if($request->has('is_published')){
+            $request->merge(array('is_published' => 'Y'));
+            $data = $request->except(['_token']);
+        } else {
+            $data = $request->except(['_token' , 'is_published']);
+        }
+
+        $cat->update($data);
+
+        $request->session()->flash('Success', trans('notify.UPDATE_SUCCESS_NOTIFICATION'));
+        return redirect(route('admin.slide.categories'));
+    }
+    // -------------------------------------------------------------------------------
+    protected function categoryDelete(SlideShowCategory $cat , Request $request){
+        $cat->delete();
+        $request->session()->flash('success', trans('notify.DELETE_SUCCESS_NOTIFICATION'));
+        return redirect(route('admin.slide.categories'));
+    }
+    // -------------------------------------------------------------------------------
+    protected function categoryStatusUpdate (Request $request)
+    {
+        if($request->has('user_id') && $request->has('status')){
+            $cat = SlideShowCategory::where('id' , $request->input('user_id'))->first();
+            $cat->is_published = $request->input('status');
+            $cat->update();
+            return response(['status' => 'success' , 'message' => 'successfully updated' , 'newStatus' => $request->input('status')]);
+        }
+        return response(['status' => 'error' , 'message' => 'Something went wrong! contact the administrator'] , 404);
+    }
+
+
+
+
+
+
 
 }
