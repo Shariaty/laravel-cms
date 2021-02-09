@@ -33,6 +33,7 @@
                 <img src="{{asset('assets/admin/images/logo-transparent.png')}}" alt="">
             </a>
         </div>
+    <p>Hasssan</p>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">{{trans('admin.EMAIL')}}</label>
             <div class="input-icon">
