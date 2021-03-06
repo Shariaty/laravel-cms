@@ -311,6 +311,17 @@
                         @endcan
                     @endif
 
+                    @if( hasModule('Validity') )
+                        @can(config('permissions.PERMISSION_VALIDITY'))
+                            <li class="nav-item {{(strpos(URL::current(),url('administrator/validity/list')) !== false ) ? 'active open': '' }}">
+                                <a href="{{route('admin.validity.list')}}" class="nav-link ">
+                                    <i class="fa fa-certificate"></i>
+                                    <span class="title">Validity</span>
+                                </a>
+                            </li>
+                        @endcan
+                    @endif
+
                     @if( hasModule('Products') )
                         @can(config('permissions.PERMISSION_PRODUCTS'))
                             <li class="nav-item {{ (strpos(URL::current(),url('administrator/products/list')) !== false ) || (strpos(URL::current(),url('administrator/products/categories')) !== false ) ? 'active open': '' }}">
