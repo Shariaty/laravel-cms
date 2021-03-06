@@ -13,6 +13,7 @@
         "captcha-com/laravel-captcha": "4.*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
+        "grimzy/laravel-mysql-spatial": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "larabook/gateway": "^3.4",
