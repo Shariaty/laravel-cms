@@ -39,6 +39,5 @@ Route::get('/logVisit', [visitorController::class, 'saveVisitLog']);
 
 Route::get('/getStates', [CountryCitiesController::class, 'getStates']);
 Route::get('/getCities', [CountryCitiesController::class, 'getCities']);
-Route::post('/getDistricts', [RegisterController::class, 'getDistricts']);
-
+Route::post('/getDistricts', [CountryCitiesController::class, 'getDistricts']);
 
