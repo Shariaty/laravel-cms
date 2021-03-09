@@ -22,6 +22,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.2",
+        "maatwebsite/excel": "^3.1",
         "mavinoo/Laravel-sms-iran": "dev-master",
         "niklasravnsborg/laravel-pdf": "^4.0",
         "nwidart/laravel-modules": "^7.2",
