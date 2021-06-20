@@ -9,4 +9,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('skills', 'api\skillsController@getAllSkills');
+
+use Modules\Skill\Http\Controllers\SkillApiController;
+
+Route::get('skills', [SkillApiController::class, 'getAllSkills']);
