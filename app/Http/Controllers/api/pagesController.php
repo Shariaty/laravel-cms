@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Admin\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -24,6 +25,22 @@ class pagesController extends Controller
             return response()->json(null , 403);
         }
         return response()->json(['title' => $page->{'title:fa'} , 'slug' => $page->{'slug:fa'} , 'meta' => $page->{'meta:fa'} ,  'p_body' => $page->{'desc:fa'}]);
+    }
+
+    public function getSpecificPageInAllLanguages($slug)
+    {
+        $page = Page::whereTranslation('slug' , $slug)->first();
+
+        $locales = Config::get('translatable.localeList');
+        $finalPageData = [];
+        foreach ($locales as $key => $value) {
+            $finalPageData[$key] = ['title' => $page->{"title:$key"} , 'slug' => $page->{"slug:$key"} , 'meta' => $page->{"meta:$key"} ,  'p_body' => $page->{"desc:$key"}];
+        }
+
+        if (count($finalPageData) < 1){
+            return response()->json(null , 403);
+        }
+        return response()->json($finalPageData);
     }
 
     public function sendEmail(Request $request)
