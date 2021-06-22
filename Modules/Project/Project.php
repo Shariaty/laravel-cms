@@ -17,6 +17,19 @@ class Project extends Model
         'sort' , 'title', 'slug' , 'url' , 'body' , 'img' , 'is_published' , 'is_expired', 'views'
     ];
 
+    protected $appends = [ 'cover_image' ];
+
+    public function getCoverImageAttribute()
+    {
+        $final = null ;
+        if($this->img) {
+            $final =  public_path('uploads/admins/project-pictures/'.$this->img);
+        } else {
+            $final =  asset('assets/admin/images/product-placeholder.jpg');
+        }
+        return $final;
+    }
+
     public function categories()
     {
         return $this->belongsToMany( ProjectCategory::class , 'projects_projectscategories' , 'project_id' , 'category_id')->withTimestamps();
