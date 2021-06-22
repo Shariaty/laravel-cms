@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +10,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/project', function (Request $request) {
-    return $request->user();
-});
+use Modules\Project\Http\Controllers\ProjectApiController;
+
+Route::get('projects', [ProjectApiController::class, 'getAllProjects']);
