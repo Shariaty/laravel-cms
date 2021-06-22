@@ -1,0 +1,15 @@
+.modal-title{
+    font-family: Tahoma, Helvetica, Arial;
+}
+.messageContainer{
+    font-family: Tahoma, Helvetica, Arial;
+    font-size: 15px;
+    text-align: justify;
+    direction: rtl;
+    word-wrap: break-word;
+}
+
+.farsi{
+    font-family: Tahoma, Helvetica, Arial;
+    font-size: 12px;
+}

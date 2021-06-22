@@ -616,6 +616,18 @@
                     @endcan
                 @endif
 
+                @if( hasModule('Contacts') )
+                    @can(config('permissions.PERMISSION_CONTACTS'))
+                        <li class="nav-item {{(strpos(URL::current(),url('administrator/contacts')) !== false ) ? 'active open': '' }}">
+                            <a href="{{route('admin.contacts.list')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="title">Messages @if(isset($messageContactCounter) && $messageContactCounter > 0 ) <span class="badge badge-danger pull-right pulsate" id="message-counter" data-counter="{{$messageContactCounter}}">{{$messageContactCounter}}</span> @endif </span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    @endcan
+                @endif
+
                 @if( hasModule('Comments') )
                     @can(config('permissions.PERMISSION_COMMENTS'))
                         <li class="nav-item {{(strpos(URL::current(),url('administrator/comments')) !== false ) ? 'active open': '' }}">
