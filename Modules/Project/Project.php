@@ -23,7 +23,7 @@ class Project extends Model
     {
         $final = null ;
         if($this->img) {
-            $final =  public_path('uploads/admins/project-pictures/'.$this->img);
+            $final =  asset('uploads/admins/project-pictures/'.$this->img);
         } else {
             $final =  asset('assets/admin/images/product-placeholder.jpg');
         }
