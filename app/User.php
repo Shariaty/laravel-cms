@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $appends = ['avatar'];
-    
+
     protected $hidden = [
         'password','remember_token', 'activation_code'
     ];
@@ -42,7 +42,7 @@ class User extends Authenticatable implements JWTSubject
 
         return $final;
     }
-    
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
