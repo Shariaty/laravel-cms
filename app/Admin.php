@@ -2,13 +2,13 @@
 
 namespace App;
 
-use App\Admin\Blog;
+
 use App\Admin\Page;
-use App\Admin\Permission;
 use App\Admin\Role;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\Articles\Blog;
 
 class Admin extends Authenticatable
 {
