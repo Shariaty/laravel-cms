@@ -9,7 +9,7 @@ class SkillApiController extends Controller
 {
     public function getAllSkills()
     {
-        $skills = Skill::orderBy('sort', 'ASC')->get();
+        $skills = Skill::orderBy('sort', 'ASC')->real()->get();
         return response()->json($skills);
     }
 }

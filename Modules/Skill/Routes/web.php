@@ -7,12 +7,15 @@ use Modules\Skill\Http\Controllers\SkillController;
 Route::group( ['middleware' => 'can:'.config('permissions.PERMISSION_SKILLS') , 'prefix' => 'administrator'] ,function() {
     Route::get('/skills/list', [SkillController::class, 'index'])->name('admin.skills.list');
     Route::get('/skills/add', [SkillController::class, 'add'])->name('admin.skills.add');
-    Route::post('/skills/create', [SkillController::class, 'create'])->name('admin.skills.create');
     Route::get('/skills/edit/{skill}', [SkillController::class, 'edit'])->name('admin.skills.edit');
     Route::post('/skills/update/{skill}', [SkillController::class, 'update'])->name('admin.skills.update');
     Route::get('/skills/delete/{skill}', [SkillController::class, 'delete'])->name('admin.skills.delete');
     Route::post('/skills/AjaxStatusUpdate', [SkillController::class, 'statusUpdate'])->name('admin.skills.status');
     Route::get('/skills/image/delete/{skill}', [SkillController::class, 'SkillImageDelete'])->name('admin.skills.image.delete');
+
+    Route::post('/skills/ajaxFileUpload', [SkillController::class, 'ajaxFileUpload'])->name('admin.skills.ajaxFileUpload');
+    Route::get('/skills/fileRemove/{skill}/{type}', [SkillController::class, 'magazineFileRemove'])->name('admin.skills.removeFile');
+    Route::get('/skills/fileView/{skill}/{type}', [SkillController::class, 'magazineFileView'])->name('admin.skills.fileView');
 
 
     Route::get('/skills/categories', [SkillController::class, 'categoryList'])->name('admin.skills.categories');
