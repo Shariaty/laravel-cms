@@ -31,10 +31,9 @@ class ProjectController extends Controller
     // -------------------------------------------------------------------------------
     public function create(Request $request)
     {
-
-
-        if($request->has('categories'))
+        if($request->has('categories')){
             $request['categories'] = stringArrayConvertToIntArray($request['categories']);
+        }
 
         $this->validator($request->all())->validate();
 
@@ -65,7 +64,7 @@ class ProjectController extends Controller
         $data = $request->except(['_token' , 'categories' , 'image']);
         $project = Project::create($data);
 
-        if((count($request->input('categories')) > 1)) {
+        if((count($request->input('categories')) >= 1)) {
             $project->categories()->sync($request->input('categories'));
         }
 
@@ -122,7 +121,7 @@ class ProjectController extends Controller
             $data = $request->except(['_token' , 'categories' , 'image']);
 
             $project->update($data);
-            if((count($request->input('categories')) > 1)) {
+            if((count($request->input('categories')) >= 1)) {
 
                 $project->categories()->sync($request->input('categories'));
             }
