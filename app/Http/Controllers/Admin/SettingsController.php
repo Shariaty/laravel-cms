@@ -19,6 +19,7 @@ class SettingsController extends Controller
 
     public function settingsUpdate(Request $request)
     {
+        dd(1);
         $validator = Validator::make($request->all() , [
             'title' => 'required|min:2',
             'description' => 'max:200',
