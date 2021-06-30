@@ -19,6 +19,11 @@ class Project extends Model
 
     protected $appends = [ 'cover_image' ];
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_published', 'Y');
+    }
+
     public function getCoverImageAttribute()
     {
         $final = null ;

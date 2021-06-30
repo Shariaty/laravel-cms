@@ -10,7 +10,7 @@ class ProjectApiController extends Controller
     // -------------------------------------------------------------------------------
     public function getAllProjects()
     {
-        $projects = Project::orderBy('sort', 'ASC')->with('categories')->get();
+        $projects = Project::active()->orderBy('sort', 'ASC')->with('categories')->get();
 
         foreach ($projects as $project){
             unset($project->id);
