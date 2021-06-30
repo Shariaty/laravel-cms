@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LockController;
 use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\admin\Auth\ProfileController;
+use App\Http\Controllers\Admin\Auth\ProfileController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PagesController;
