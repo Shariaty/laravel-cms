@@ -32,6 +32,9 @@ Route::group( ['prefix' => 'administrator'] ,function() {
         Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
     });
 
+
+    Route::post('/saveSettings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.saveSettings');
+
     Route::group( ['middleware' => ['admin_auth','admin_locked']] ,function() {
 
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
@@ -39,7 +42,6 @@ Route::group( ['prefix' => 'administrator'] ,function() {
         Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::get('/settings', [SettingsController::class, 'settingsView'])->name('admin.site.settings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
 //        Route::post('/settings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.settings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
-        Route::post('/saveSettings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.saveSettings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
 
         Route::get('/mediaManager', [DashboardController::class, 'mediaManager'])->name('admin.mediaManager')->middleware('can:'.config('permissions.PERMISSION_FILE_MANAGER'));
         Route::post('/AjaxGetCities', [CountryCitiesController::class, 'AjaxGetCities'])->name('admin.AjaxGetCities');
