@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\visitors;
+namespace App\Http\Controllers\Api\Visitors;
 
 use App\Http\Controllers\Controller;
 use App\Visitor;
