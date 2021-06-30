@@ -6,7 +6,6 @@ use App\Http\Controllers\admin\auth\ProfileController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PagesController;
-use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\PublicUsersController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
