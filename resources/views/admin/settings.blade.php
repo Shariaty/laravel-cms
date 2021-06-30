@@ -7,7 +7,7 @@
             <div class="panel panel-grey">
                 <div class="panel-heading">{{$title}}</div>
                 <div class="panel-body">
-                    {!! Form::open(array('route' => 'admin.site.saveSettings', 'method' => 'POST')) !!}
+                    {!! Form::open(array('url' => url('/administrator/settings'), 'method' => 'POST')) !!}
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-3 col-xs-12">
