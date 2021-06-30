@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LockController;
 use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\admin\auth\ProfileController;
+use App\Http\Controllers\admin\Auth\ProfileController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PagesController;
@@ -38,7 +38,8 @@ Route::group( ['prefix' => 'administrator'] ,function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::get('/settings', [SettingsController::class, 'settingsView'])->name('admin.site.settings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
-        Route::post('/settings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.settings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
+//        Route::post('/settings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.settings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
+        Route::post('/saveSettings', [SettingsController::class, 'settingsUpdate'])->name('admin.site.saveSettings')->middleware('can:'.config('permissions.PERMISSION_SETTINGS'));
 
         Route::get('/mediaManager', [DashboardController::class, 'mediaManager'])->name('admin.mediaManager')->middleware('can:'.config('permissions.PERMISSION_FILE_MANAGER'));
         Route::post('/AjaxGetCities', [CountryCitiesController::class, 'AjaxGetCities'])->name('admin.AjaxGetCities');
