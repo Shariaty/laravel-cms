@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\pagesController;
 use App\Http\Controllers\Api\paymentController;
 use App\Http\Controllers\Api\settingsController;
-use App\Http\Controllers\Api\visitors\visitorController;
+use App\Http\Controllers\Api\Visitors\visitorController;
 use App\Http\Controllers\CountryCities\CountryCitiesController;
 
 Route::get('settings', [settingsController::class, 'getAllSettings']);
