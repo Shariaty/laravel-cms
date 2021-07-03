@@ -18,7 +18,7 @@ class settingsController extends Controller
 
         $brands = null;
         if (hasModule('Products')){
-            $brands = Manufacture::all()->toArray();
+            $brands = Manufacture::where('image' , '!=' , null)->get()->toArray();
         }
 
         $newEvent = null;
