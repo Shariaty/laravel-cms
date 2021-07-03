@@ -15,15 +15,19 @@ class settingsController extends Controller
     public function getAllSettings()
     {
         $settings = OilSettings::getApiStyle(['site' , 'social']);
-//        $brands = Manufacture::all();glo
 
-//        $newEvent = null;
-//        if (hasModule('Events')){
-//            $event = Events::published()->whereDate('event_date', '>=', Carbon::now())->orderBy('event_date' , 'ASC')->first();
-//            if ($event) {
-//                $newEvent = $event;
-//            }
-//        }
+        $brands = null;
+        if (hasModule('Products')){
+            $brands = Manufacture::all()->toArray();
+        }
+
+        $newEvent = null;
+        if (hasModule('Events')){
+            $event = Events::published()->whereDate('event_date', '>=', Carbon::now())->orderBy('event_date' , 'ASC')->first();
+            if ($event) {
+                $newEvent = $event;
+            }
+        }
 
         $pageObject = new pagesController();
         $aboutData = $pageObject->getSpecificPageInAllLanguages('about-us');
@@ -31,6 +35,8 @@ class settingsController extends Controller
 
         $final = array_prepend( $settings , true , 'isLoaded' );
         $finalData = array_prepend( $final , $about , 'about' );
+        $finalData = array_prepend( $finalData , $newEvent , 'event' );
+        $finalData = array_prepend( $finalData , $brands , 'brands' );
 
         return response()->json($finalData);
     }
