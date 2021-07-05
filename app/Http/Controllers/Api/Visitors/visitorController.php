@@ -14,7 +14,6 @@ class visitorController extends Controller
         $visitor_ip = geoip()->getClientIP();
         $location = geoip()->getLocation($visitor_ip);
         $location = array_replace($location->toArray() , ['ip' => ip2long($location->ip)]);
-
         if( !$location['default'] ){
             Visitor::create($location);
         }

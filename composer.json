@@ -27,6 +27,7 @@
         "niklasravnsborg/laravel-pdf": "^4.0",
         "nwidart/laravel-modules": "^7.2",
         "opilo/farsi": "^0.3.0",
+        "torann/geoip": "^3.0",
         "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
