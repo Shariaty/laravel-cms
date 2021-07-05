@@ -13,7 +13,7 @@ class visitorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('throttle:4,1')->only('saveVisitLog');
+        $this->middleware('throttle:8,1')->only('saveVisitLog');
     }
 
     public function saveVisitLog(Request $request)
