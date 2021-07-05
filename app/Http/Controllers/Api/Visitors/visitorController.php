@@ -10,6 +10,12 @@ use Torann\GeoIP\Facades\GeoIP;
 
 class visitorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('throttle:4,1')->only('saveVisitLog');
+    }
+
     public function saveVisitLog(Request $request)
     {
         $visitor_ip = GeoIP::getClientIP();
