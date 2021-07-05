@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Api\Visitors;
 use App\Http\Controllers\Controller;
 use App\Visitor;
 use Illuminate\Http\Request;
+use Torann\GeoIP\Facades\GeoIP;
 
 
 class visitorController extends Controller
 {
     public function saveVisitLog(Request $request)
     {
-        $visitor_ip = geoip()->getClientIP();
-        $location = geoip()->getLocation($visitor_ip);
+        $visitor_ip = GeoIP::getClientIP();
+        $location = GeoIP::getLocation($visitor_ip);
         $location = array_replace($location->toArray() , ['ip' => ip2long($location->ip)]);
         if( !$location['default'] ){
             Visitor::create($location);
